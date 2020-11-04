@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/src/models/country_model.dart';
 import 'package:intl_phone_number_input/src/utils/test/test_helper.dart';
@@ -11,13 +13,17 @@ class CountrySearchListWidget extends StatefulWidget {
   final bool autoFocus;
   final bool showFlags;
   final bool useEmoji;
+  final TextStyle countryTextStyle;
+  final TextStyle codeTextStyle;
 
   CountrySearchListWidget(this.countries, this.locale,
       {this.searchBoxDecoration,
       this.scrollController,
       this.showFlags,
       this.useEmoji,
-      this.autoFocus = false});
+      this.autoFocus = false, 
+      this.countryTextStyle, 
+      this.codeTextStyle});
 
   @override
   _CountrySearchListWidgetState createState() =>
@@ -109,12 +115,15 @@ class _CountrySearchListWidgetState extends State<CountrySearchListWidget> {
                 title: Align(
                     alignment: AlignmentDirectional.centerStart,
                     child: Text('${getCountryName(country)}',
-                        textAlign: TextAlign.start)),
+                        textAlign: TextAlign.start,
+                        style: widget.countryTextStyle),
+                        ),
                 subtitle: Align(
                     alignment: AlignmentDirectional.centerStart,
                     child: Text('${country?.dialCode ?? ''}',
                         textDirection: TextDirection.ltr,
-                        textAlign: TextAlign.start)),
+                        textAlign: TextAlign.start,
+                        style: widget.codeTextStyle)),
                 onTap: () => Navigator.of(context).pop(country),
               );
             },
